@@ -26,6 +26,7 @@ namespace WordCSharp_ns
             myDocument = myWord.Documents.Add();
         }
 
+
         internal void impostaAlignment(System.Windows.Forms.ComboBox cmbAlignment)
         {
             string[] wdU = (string[])Enum.GetNames(typeof(WdParagraphAlignment));
@@ -93,12 +94,12 @@ namespace WordCSharp_ns
 
         }
 
-        internal void InserisciTabella(int c, int r,ref object start, ref object end)
+        internal Table InserisciTabella(int r, int c,ref object start, ref object end)
         {
             Table tabella;
             tabella = myDocument.Tables.Add(myDocument.Range(ref start, ref end), r, c);
             tabella.Borders.Enable = 1; 
-
+            return tabella;
         }
 
 
@@ -117,6 +118,35 @@ namespace WordCSharp_ns
             myrange.Text = text;
         }
 
+        internal bool ricercaSostituisci(string ricercato, ref object start, ref object end)
+        {
+            bool trovato = false;
+            object findText = ricercato;
+            
+            myWord.Selection.Find.ClearFormatting();
+            myWord.Selection.Start = myDocument.Content.Start;
+            myWord.Selection.End = myDocument.Content.End;
+
+            if(myWord.Selection.Find.Execute(ref findText)) trovato = true;
+          
+            return trovato;
+        }
+
+        internal bool ricercaSostituisci(string ricercato, string sostituto, bool sostituisci, ref object start, ref object end)
+        {
+            bool trovato = false;
+            object findText = ricercato;
+            object replaceText= sostituto;
+            object ms = System.Type.Missing;
+            myWord.Selection.Find.ClearFormatting();
+            myWord.Selection.Start = myDocument.Content.Start;
+            myWord.Selection.End = myDocument.Content.End;
+
+            if (myWord.Selection.Find.Execute(ref findText)) trovato = true;
+            if(trovato) myWord.Selection.Find.Execute(ref findText, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref replaceText)
+            return trovato;
+        }
+
         internal void SalvaChiudi(string nomefile="")
         {
             if (myWord != null)
@@ -129,6 +159,40 @@ namespace WordCSharp_ns
             }
 
         }
+
+        /// <summary>
+        /// Metodo per scrivere all'interno di una cella specificata da riga, colonna e formattazione
+        /// </summary>
+        /// <param name="tabella">Puntatore della tabella a cui fare riferimento</param>
+        /// <param name="r"></param>
+        /// <param name="c"></param>
+        /// <param name="testo"></param>
+        /// <param name="vAlign"></param>
+        /// <param name="oAlign"></param>
+        /// <param name="bold"></param>
+        /// <param name="size"></param>
+        /// <param name="font"></param>
+        /// <param name="color"></param>
+        internal void scriviCella(Table tabella, int r, int c, string testo, WdCellVerticalAlignment vAlign, WdParagraphAlignment oAlign, bool bold, int size, string font, WdColor color)
+        {
+          tabella.Cell(r, c).Range.Text=testo;
+          tabella.Cell(r, c).Range.Cells.VerticalAlignment=vAlign;
+            tabella.Cell(r, c).Range.Paragraphs.Alignment=oAlign;
+            tabella.Cell(r, c).Range.Bold = Convert.ToInt32(bold);
+            tabella.Cell(r, c).Range.Font.Size= size;
+            tabella.Cell(r, c).Range.Font.Name= font;
+            tabella.Cell(r, c).Range.Font.Color= color;
+        }
+
+        internal string Select(object start, object end)
+        {
+            Range range = myDocument.Range(ref start,ref end);
+            range.Select();
+            
+            return range.Text;
+        }
+
+        
 
         private void chiudi()
         {
