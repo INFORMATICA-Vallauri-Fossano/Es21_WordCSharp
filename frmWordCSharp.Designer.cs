@@ -55,6 +55,8 @@
             this.btnRicerca = new System.Windows.Forms.Button();
             this.txtTestoRicercare = new System.Windows.Forms.TextBox();
             this.chkSostituisci = new System.Windows.Forms.CheckBox();
+            this.btnCreaPDF = new System.Windows.Forms.Button();
+            this.btnStampa = new System.Windows.Forms.Button();
             this.grbWordCreated.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +72,8 @@
             // 
             // grbWordCreated
             // 
+            this.grbWordCreated.Controls.Add(this.btnStampa);
+            this.grbWordCreated.Controls.Add(this.btnCreaPDF);
             this.grbWordCreated.Controls.Add(this.btnCreaTabella);
             this.grbWordCreated.Controls.Add(this.cmbRighe);
             this.grbWordCreated.Controls.Add(this.cmbColonne);
@@ -87,7 +91,7 @@
             this.grbWordCreated.Enabled = false;
             this.grbWordCreated.Location = new System.Drawing.Point(12, 73);
             this.grbWordCreated.Name = "grbWordCreated";
-            this.grbWordCreated.Size = new System.Drawing.Size(736, 244);
+            this.grbWordCreated.Size = new System.Drawing.Size(736, 316);
             this.grbWordCreated.TabIndex = 1;
             this.grbWordCreated.TabStop = false;
             this.grbWordCreated.Text = "CONTROLLI";
@@ -314,11 +318,31 @@
             this.chkSostituisci.Text = "SOSTITUISCI";
             this.chkSostituisci.UseVisualStyleBackColor = true;
             // 
+            // btnCreaPDF
+            // 
+            this.btnCreaPDF.Location = new System.Drawing.Point(7, 249);
+            this.btnCreaPDF.Name = "btnCreaPDF";
+            this.btnCreaPDF.Size = new System.Drawing.Size(75, 23);
+            this.btnCreaPDF.TabIndex = 26;
+            this.btnCreaPDF.Text = "CREA PDF";
+            this.btnCreaPDF.UseVisualStyleBackColor = true;
+            this.btnCreaPDF.Click += new System.EventHandler(this.btnCreaPDF_Click);
+            // 
+            // btnStampa
+            // 
+            this.btnStampa.Location = new System.Drawing.Point(88, 249);
+            this.btnStampa.Name = "btnStampa";
+            this.btnStampa.Size = new System.Drawing.Size(75, 23);
+            this.btnStampa.TabIndex = 27;
+            this.btnStampa.Text = "STAMPA";
+            this.btnStampa.UseVisualStyleBackColor = true;
+            this.btnStampa.Click += new System.EventHandler(this.btnStampa_Click);
+            // 
             // frmWordCSharp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 329);
+            this.ClientSize = new System.Drawing.Size(755, 452);
             this.Controls.Add(this.chkSostituisci);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
@@ -373,6 +397,8 @@
         private System.Windows.Forms.Button btnRicerca;
         private System.Windows.Forms.TextBox txtTestoRicercare;
         private System.Windows.Forms.CheckBox chkSostituisci;
+        private System.Windows.Forms.Button btnCreaPDF;
+        private System.Windows.Forms.Button btnStampa;
     }
 }
 

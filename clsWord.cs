@@ -26,6 +26,10 @@ namespace WordCSharp_ns
             myDocument = myWord.Documents.Add();
         }
 
+        internal void creaPDF(string path, bool visualizzaPDF)
+        {
+            myDocument.ExportAsFixedFormat(path, WdExportFormat.wdExportFormatPDF, visualizzaPDF);
+        }
 
         internal void impostaAlignment(System.Windows.Forms.ComboBox cmbAlignment)
         {
@@ -132,20 +136,25 @@ namespace WordCSharp_ns
             return trovato;
         }
 
+        
         internal bool ricercaSostituisci(string ricercato, string sostituto, bool sostituisci, ref object start, ref object end)
         {
             bool trovato = false;
             object findText = ricercato;
-            object replaceText= sostituto;
+            object replaceText = sostituto;
             object ms = System.Type.Missing;
             myWord.Selection.Find.ClearFormatting();
             myWord.Selection.Start = myDocument.Content.Start;
             myWord.Selection.End = myDocument.Content.End;
 
-            if (myWord.Selection.Find.Execute(ref findText)) trovato = true;
-            if(trovato) myWord.Selection.Find.Execute(ref findText, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref replaceText)
+            if (myWord.Selection.Find.Execute(ref findText))
+            {
+                trovato = true;
+                myWord.Selection.Find.Execute(ref findText, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref ms, ref replaceText, sostituisci ? Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll : Microsoft.Office.Interop.Word.WdReplace.wdReplaceNone);
+            }
             return trovato;
         }
+
 
         internal void SalvaChiudi(string nomefile="")
         {
@@ -192,7 +201,10 @@ namespace WordCSharp_ns
             return range.Text;
         }
 
-        
+        internal void Stampa()
+        {
+            myDocument.PrintOut();
+        }
 
         private void chiudi()
         {

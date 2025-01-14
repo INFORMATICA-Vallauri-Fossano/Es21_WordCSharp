@@ -103,8 +103,24 @@ namespace Es21_WordCSharpù
         {
             object start=0, end = 0;
             word.impostaRange(ref start, ref end);
-            if (word.ricercaSostituisci(txtTestoRicercare.Text, txtTestoSostituire.Text, chkSostituisci.Checked, ref start, ref end)) MessageBox.Show("Trovato");
-            else MessageBox.Show("Testop non trovato");
+            if (word.ricercaSostituisci(txtTestoRicercare.Text, txtTestoSostituire.Text, chkSostituisci.Checked, ref start, ref end))
+            {
+                MessageBox.Show($"Testo trovato :start {start} end {end}");
+            }
+            else MessageBox.Show("Testo non trovato");
+        }
+
+        private void btnCreaPDF_Click(object sender, EventArgs e)
+        {
+            string path;
+            path=Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+@"\prova.pdf";
+            word.creaPDF(path, true);
+
+        }
+
+        private void btnStampa_Click(object sender, EventArgs e)
+        {
+            word.Stampa();
         }
     }
 }
